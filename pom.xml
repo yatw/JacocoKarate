@@ -96,13 +96,33 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
                 <configuration>
-                    <excludes>
-                        <exclude>karate/**/*.java</exclude>
-                    </excludes>
                     <includes>
-                        <include>com/**/*.java</include>
+                        <include>karate/KarateTests.java</include>
+                        <include>karate/person/PersonRunner.java</include>
                     </includes>
+                    <!-- pass jacoco runtime agent to JVM so we record code coverage when tests run -->
+                    <argLine>-Dfile.encoding=UTF-8 ${argLine}</argLine>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.4</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
